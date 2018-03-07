@@ -15,4 +15,4 @@ var firebase = {
   }*/
 }
 
-module.exports = fb;
+module.exports = firebase;
