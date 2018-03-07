@@ -1,5 +1,13 @@
+var ArgHandle = require('../Tools/ArgumentsHandler');
 var admin = require("firebase-admin");
-var cs = JSON.parse(process.env.FIREBASE_CONFIG);
+console.log("DEBUG ? : " + ArgHandle.valueOfArgument('DEBUG'));
+if(ArgHandle.valueOfArgument("DEBUG")){
+  var cs = require('../../key.json');
+  console.log(cs);
+}
+else
+  var cs = JSON.parse(process.env.FIREBASE_CONFIG); 
+
 var config = {
   credential : admin.credential.cert(cs),
   databaseURL : "https://skullsofrainbow-skullbot.firebaseio.com"

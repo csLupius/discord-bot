@@ -8,7 +8,7 @@ client.on('ready', () => {
 
 
 client.on('message', function (message) {
-    MessageController.HanldeMessage(message);
+    MessageController.HandleMessage(message);
 });
 
 client.login(process.env.BOT_TOKEN);
