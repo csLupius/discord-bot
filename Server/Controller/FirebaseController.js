@@ -20,7 +20,7 @@ var config = {
 }
 
 
-//admin.initializeApp(config);
+admin.initializeApp(config);
 
 
 module.exports = {
