@@ -1,6 +1,6 @@
 var admin = require("firebase-admin");
 
-var c = require("../key.json");
+//var c = require("../key.json");
 /*var c = {
   "type": "service_account",
   "project_id": "skullsofrainbow-skullbot",
