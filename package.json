@@ -1,7 +1,6 @@
 {
   "name": "skullsofrainbowbot",
   "version": "0.0.1",
-  "description": "",
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +14,10 @@
   "bugs": {
     "url": "https://github.com/csLupius/SkullsOfRainbowBOT/issues"
   },
-  "homepage": "https://github.com/csLupius/SkullsOfRainbowBOT#readme"
+  "homepage": "https://github.com/csLupius/SkullsOfRainbowBOT#readme",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {},
+  "description": ""
 }
