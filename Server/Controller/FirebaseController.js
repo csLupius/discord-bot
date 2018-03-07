@@ -5,7 +5,7 @@ var credential = {
   "type": "service_account",
   "project_id": "skullsofrainbow-skullbot",
   "private_key_id": "88d06199fe919de73d3f7c4cf0561cb8549ee40b",
-  "private_key": process.env.FIREBASE_PRIVATE_KEY,
+  "private_key": process.env.FIREBASE_PRIVATE_KEY.toString(),
   "client_email": "firebase-adminsdk-wqfdw@skullsofrainbow-skullbot.iam.gserviceaccount.com",
   "client_id": "105747545999842209605",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
