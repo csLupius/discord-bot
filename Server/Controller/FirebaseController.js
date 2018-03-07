@@ -15,7 +15,7 @@ var admin = require("firebase-admin");
 }*/
 console.log(process.env.FIREBASE_CONFIG);
 var config = {
-  credential : admin.credential.cert(),
+  credential : admin.credential.cert(process.env.FIREBASE_CONFIG),
   databaseURL : "https://skullsofrainbow-skullbot.firebaseio.com"
 }
 
