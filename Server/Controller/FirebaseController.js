@@ -1,11 +1,11 @@
 var admin = require("firebase-admin");
 
 //var serviceAccount = require("path/to/serviceAccountKey.json");
-var credential = {
+var c = {
   "type": "service_account",
   "project_id": "skullsofrainbow-skullbot",
   "private_key_id": "88d06199fe919de73d3f7c4cf0561cb8549ee40b",
-  "private_key": process.env.FIREBASE_PRIVATE_KEY.toString(),
+  "private_key": process.env.FIREBASE_PRIVATE_KEY,
   "client_email": "firebase-adminsdk-wqfdw@skullsofrainbow-skullbot.iam.gserviceaccount.com",
   "client_id": "105747545999842209605",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
@@ -15,7 +15,7 @@ var credential = {
 }
 
 var config = {
-  credential : admin.credential.cert(credential),
+  credential : admin.credential.cert(c),
   databaseURL : "https://skullsofrainbow-skullbot.firebaseio.com"
 }
 

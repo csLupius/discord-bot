@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+
+console.log(process.env.FIREBASE_PRIVATE_KEY)
 const Firebase = require('./Server/Controller/FirebaseController');
 const client = new Discord.Client();
 
@@ -11,6 +13,8 @@ client.on('message', msg => {
     msg.reply('Pong!');
   }
 });
+
+
 
 client.login(process.env.BOT_TOKEN);
 
