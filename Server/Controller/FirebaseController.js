@@ -21,7 +21,7 @@ admin.initializeApp(config);
 
 
 module.exports = {
-  TEST = function(){
+  TEST : function(){
       firebase.database().ref('TEST/' + 1).set({
         test: "TEST COMPLETE"
       });
