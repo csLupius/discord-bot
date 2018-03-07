@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-
 console.log(process.env.FIREBASE_PRIVATE_KEY)
+console.log(process.env.FIREBASE_PRIVATE_KEY_ID)
+
+const Discord = require("discord.js");
 const Firebase = require('./Server/Controller/FirebaseController');
 const client = new Discord.Client();
 
