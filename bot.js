@@ -1,22 +1,15 @@
-console.log(process.env.FIREBASE_PRIVATE_KEY)
-console.log(process.env.FIREBASE_PRIVATE_KEY_ID)
-
 const Discord = require("discord.js");
 const Firebase = require('./Server/Controller/FirebaseController');
 const client = new Discord.Client();
-
+const MessageController = require('./Server/Controller/MessageController');
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-
-client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('Pong!');
-  }
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 
 
+client.on('message', function (message) {
+    MessageController.HanldeMessage(message);
+});
 
 client.login(process.env.BOT_TOKEN);
-
 Firebase.TEST();
