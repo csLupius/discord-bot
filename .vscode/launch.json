@@ -9,7 +9,10 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\bot.js"
+            "program": "${workspaceFolder}\\bot.js",
+            "args": [
+                "DEBUG"
+            ]
         }
     ]
 }
