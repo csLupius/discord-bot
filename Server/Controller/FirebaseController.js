@@ -13,9 +13,10 @@ var admin = require("firebase-admin");
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-wqfdw%40skullsofrainbow-skullbot.iam.gserviceaccount.com"
 }*/
-console.log(process.env.FIREBASE_CONFIG);
+//console.log(process.env.FIREBASE_CONFIG);
+var cs = JSON.parse(process.env.FIREBASE_CONFIG);
 var config = {
-  credential : admin.credential.cert(process.env.FIREBASE_CONFIG),
+  credential : admin.credential.cert(cs),
   databaseURL : "https://skullsofrainbow-skullbot.firebaseio.com"
 }
 
