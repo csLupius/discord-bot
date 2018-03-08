@@ -1,9 +1,9 @@
 var ArgHandle = require('../Tools/ArgumentsHandler');
 var admin = require("firebase-admin");
-console.log("DEBUG ? : " + ArgHandle.valueOfArgument('DEBUG'));
+//console.log("DEBUG ? : " + ArgHandle.valueOfArgument('DEBUG'));
 if(ArgHandle.valueOfArgument("DEBUG")){
   var cs = require('../../key.json');
-  console.log(cs);
+  //console.log(cs);
 }
 else
   var cs = JSON.parse(process.env.FIREBASE_CONFIG); 

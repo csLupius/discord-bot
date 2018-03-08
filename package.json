@@ -4,7 +4,7 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "nodemon bot.js DEBUG=true",
+    "debug": "nodemon bot.js DEBUG",
     "dev": "nodemon bot.js"
   },
   "repository": {
@@ -19,7 +19,8 @@
   "homepage": "https://github.com/csLupius/SkullsOfRainbowBOT#readme",
   "dependencies": {
     "discord.js": "^11.3.2",
-    "firebase-admin": "^5.9.1"
+    "firebase-admin": "^5.9.1",
+    "nodemon": "^1.17.1"
   },
   "devDependencies": {},
   "description": ""
