@@ -11,7 +11,7 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}\\bot.js",
             "args": [
-                "DEBUG"
+                    "DEBUG"
             ]
         }
     ]

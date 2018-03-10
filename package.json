@@ -20,7 +20,8 @@
   "dependencies": {
     "discord.js": "^11.3.2",
     "firebase-admin": "^5.9.1",
-    "nodemon": "^1.17.1"
+    "nodemon": "^1.17.1",
+    "pg": "^7.4.1"
   },
   "devDependencies": {},
   "description": ""
