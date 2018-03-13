@@ -10,7 +10,7 @@ var e = {
     var _result = false;
     client.connect();
     var query = {
-      text : 'select id from public.\"User\" where discord_snowflake = \'$v\'',
+      text : 'select id from public.\"Users\" where discord_snowflake = \'$v\'',
       value : [discordID]
     }
     client.query(query, (err, res) => {
