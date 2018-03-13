@@ -9,7 +9,7 @@ var e = {
   TESTcheckIfUserExists : function(discordID){
     var _result = false;
     client.connect();
-    var res = client.query('select id from public."Users" where = "$v"',[discordID],function(err, res, fields){
+    var res = client.query("select id from public.\"Users\" where discord_snowflake='$v'",[discordID],function(err, res, fields){
       if(err) throw err;
 
       console.log("--- Query Fields ------")
