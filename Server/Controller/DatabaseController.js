@@ -14,6 +14,7 @@ var e = {
       value : [discordID]
     }
     client.query(query, (err, res) => {
+      console.log(query.text);
       if(err){
         console.log(err.stack);
         throw err;
