@@ -15,6 +15,7 @@ var e = {
     }
     client.query(query, (err, res) => {
       console.log(query.text);
+      console.log(res.command);
       if(err){
         console.log(err.stack);
         throw err;
