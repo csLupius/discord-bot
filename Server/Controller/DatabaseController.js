@@ -9,15 +9,17 @@ var e = {
   TESTcheckIfUserExists : function(discordID){
     var _result = false;
     client.connect();
-    var res = client.query("select id from public.\"Users\" where discord_snowflake =\'$v\'",[discordID],function(err, res, fields){
-      if(err) throw err;
-
-      console.log("--- Query Fields ------")
-      console.log(fields);
-      console.log("--- Query Res ------")
-      console.log(res);
-
-      _result = res;
+    var query = {
+      text : 'select id from public.\"User\" where discord_snowflake = \'$v\'',
+      value : [discordID]
+    }
+    client.query(query, (err, res) => {
+      if(err){
+        console.log(err.stack);
+        throw err;
+      }else {
+        _result = res.rows[0];
+      }
     });
     return _result;
   }
