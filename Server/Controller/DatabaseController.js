@@ -1,4 +1,6 @@
-const { Client } = require("pg");
+const {
+  Client
+} = require("pg");
 //console.log(process.env.DATABASE_URL);
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -6,24 +8,27 @@ const client = new Client({
 });
 
 var e = {
-  TESTcheckIfUserExists : function(discordID){
+  TESTcheckIfUserExists: function (discordID,cb) {
     var _result = false;
     client.connect();
+    console.log();
     var query = {
-      text : 'select id from public.\"Users\" where discord_snowflake = \'$v\'',
-      value : [discordID]
+      text: 'SELECT * FROM public."Users"',
+      //value : [discordID]
     }
     client.query(query, (err, res) => {
-      console.log(query.text);
-      console.log(res.command);
-      if(err){
+      if (err) {
         console.log(err.stack);
         throw err;
-      }else {
-        _result = res.rows[0];
       }
+      //console.log(res);
+      _result = res.rows[0];
+      console.log("------");
+      console.log(_result);
+      console.log("------")     
+      cb(_result); 
     });
-    return _result;
+    
   }
 }
 

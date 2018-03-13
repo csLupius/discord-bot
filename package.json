@@ -4,7 +4,8 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "nodemon bot.js DEBUG",
+    "start" : "node bot.js",
+    "debug": "set BOT_TOKEN=NDEwODU1MjgyMzc4NDA3OTM3.DYEfag.BEzILvg3YFU8w0csqoOUNQrm1dk DATABASE_URL=postgres://xdoxlsxsqoqitq:c1bc7b23b46b3e2731f578d4c71e259a276c3156f5364830c26f7527bfefb3ff@ec2-79-125-12-27.eu-west-1.compute.amazonaws.com:5432/d14fcf6ncah5ha node bot.js",
     "dev": "nodemon bot.js"
   },
   "repository": {
