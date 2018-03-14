@@ -5,13 +5,15 @@ MessageController.HandleMessage = function (message) {
     if (message.content === 'ping') {
         message.reply('pong');
     } else if (message.content === '.me') {
-        message.reply(message.author.id)
         DB.TESTcheckIfUserExists(message.author.id, function (c) {
-            console.log("VVVVVVVVVVVVV");
-            console.log(c);
-           // message.channel.send(c);
-           console.log(c.discord_snowflake);
-           console.log(message.client.users);
+            message.guild.fetchMember(message.author).then(function (res) {
+                if(res.user.id == c.discord_snowflake)
+                    message.reply('I found you!');
+                else{
+                    message.reply('I coulnd\'t found you :/');
+                }
+            })
+
         });
 
 
