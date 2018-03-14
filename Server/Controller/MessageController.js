@@ -6,13 +6,10 @@ MessageController.HandleMessage = function (message) {
         message.reply('pong');
     } else if (message.content === '.me') {
         DB.TESTcheckIfUserExists(message.author.id, function (c) {
-            message.guild.fetchMember(message.author).then(function (res) {
-                if(res.user.id == c.discord_snowflake)
-                    message.reply('I found you!');
-                else{
-                    message.reply('I coulnd\'t found you :/');
-                }
-            })
+            //console.log(message.author.username);
+            if(c){
+                message.reply("I Found You in Gamers DB " + message.author.username);
+            }
 
         });
 

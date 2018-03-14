@@ -8,27 +8,20 @@ const client = new Client({
 });
 
 var e = {
-  TESTcheckIfUserExists: function (discordID,cb) {
+  TESTcheckIfUserExists: function (discordID, cb) {
     var _result = false;
     client.connect();
     console.log();
+
     var query = {
-      text: 'SELECT * FROM public."Users"',
-      //value : [discordID]
+      text: 'SELECT * FROM "Users" where discord_snowflake like \'' + discordID + '\''
     }
-    client.query(query, (err, res) => {
-      if (err) {
-        console.log(err.stack);
-        throw err;
-      }
-      //console.log(res);
-      _result = res.rows[0];
-      console.log("------");
-      console.log(_result);
-      console.log("------")     
-      cb(_result); 
+    client.query(query).then(function (res) {
+      cb(res.rows[0]);
+    }).catch(function (er) {
+      console.log("HATA HATA");
+      console.error(er);
     });
-    
   }
 }
 
