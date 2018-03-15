@@ -1,5 +1,8 @@
 
 console.log("//////////////////////////////");
+if(process.env.OFFLINE_MODE=='ON'){
+    return;
+}else {
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const MessageController = require('./Server/Controller/MessageController');
@@ -14,3 +17,4 @@ client.on('message', function (message) {
 });
 
 client.login(process.env.BOT_TOKEN);
+}
