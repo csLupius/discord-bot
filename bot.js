@@ -9,6 +9,8 @@ const MessageController = require('./Server/Controller/MessageController');
 var db = require('./Server/Controller/DatabaseController');
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    MessageController.Bot = client.user;
+    //console.log(client.user);
 });
 
 
