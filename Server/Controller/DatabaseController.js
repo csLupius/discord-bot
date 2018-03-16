@@ -11,7 +11,7 @@ var e = {
   TESTcheckIfUserExists: function (discordID, cb) {
     var _result = false;
     client.connect();
-    console.log();
+    //console.log();
 
     var query = {
       text: 'SELECT * FROM "Users" where discord_snowflake like \'' + discordID + '\''
@@ -22,6 +22,9 @@ var e = {
       console.log("HATA HATA");
       console.error(er);
     });
+  },
+  addGame : function(discordID, gameTag, gameDesc =''){
+    return -1;
   }
 }
 
