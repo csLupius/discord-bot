@@ -97,15 +97,15 @@ function commandWrapper(
             return {
                 title: "I will answer to these:",
                 value: [
-                    ".help",
-                    ".games",
-                    ".gamers",
-                    ".addgame \"gamename\" [opt]\"game description\"",
-                    ".editgame \"game name\" \"game description\"",
-                    ".removegame \"game name\"",
-                    ".iplay \"gamename\"",
-                    ".idontplay \"gamename\"",
-                    ".gamemoderator \"rolename\""
+                    "```.help```",
+                    "```.games```",
+                    "```.gamers```",
+                    "```.addgame \"gamename\" [opt]\"game description\"```",
+                    "```.editgame \"game name\" \"game description\"```",
+                    "```.removegame \"game name\"```",
+                    "```.iplay \"gamename\"```",
+                    "```.idontplay \"gamename\"```",
+                    "```.gamemoderator \"rolename\"```"
                 ]
             };
         case ".games":

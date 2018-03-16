@@ -1,4 +1,4 @@
-
+//https://discordapi.com/permissions.html
 console.log("//////////////////////////////");
 if(process.env.OFFLINE_MODE=='ON'){
     return;
