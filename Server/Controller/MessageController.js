@@ -99,8 +99,8 @@ function commandWrapper(
                 value: [
                     "```.help```",
                     "```.games```",
-                    "```.gamers```",
-                    "```.addgame \"gamename\" [opt]\"game description\"```",
+                    "```.gamers \"game name\"```",
+                    "```.addgame \"game name\" [opt]\"game description\"```",
                     "```.editgame \"game name\" \"game description\"```",
                     "```.removegame \"game name\"```",
                     "```.iplay \"gamename\"```",
