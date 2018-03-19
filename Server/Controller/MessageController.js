@@ -8,138 +8,134 @@ var _message = '';
 MessageController.HandleMessage = function (message) {
 
     _message = message;
-    if (message.author.id == MessageController.Bot.id) {
-        return;
-    }
-
-    try {
-
-    } catch (e) {
-        console.log(e);
-    }
-    var parsed = commandParserT(message.content);
-    // console.log(parsed);
-    parsed = commandParserT(message.content);
-    //console.log(parsed);
-    if (parsed !== 0 && parsed !== -1) {
-        console.log("\n-------------------------------\n\n");
-        // /////TEST AREA///////////
-        // var testString = "vv\ncommand = " +
-        //     parsed.command;
-        // for(var i = 0 ; i < parsed.args.length; i++){
-        //     testString += " \narg[" + i +"] = " + parsed.args[i] ;
-        // }
-        // message.channel.send("Test Response: " + testString);
-        // ////////
-        try {
-            var a = commandWrapper({
-                command: parsed.command,
-                args: parsed.args
-            });
-            if (a == -1) {
-                message.reply("It seems your command string has a problem...");
-                return;
-            }
-            var title = a.title;
-            console.log("\n-------------------------------\n\n");
-            console.log(a.value);
-            console.log("\n-------------------------------\n\n");
-            var field = '';
-            if (a.value instanceof Array) {
-                field = a.value.join('\n');
-            } else {
-                field = a.value;
-            }
-            message.channel.send({
-                embed: {
-                    // title: title,
-                    color: 25777,
-                    fields: [{
-                        name: title,
-                        value: field
-                    }],
-                    width: 1500
+    if (message.author.id !== MessageController.Bot.id) {
+        var parsed = commandParserT(message.content);
+        if (parsed !== 0 && parsed !== -1) {
+            // console.log("\n-------------------------------\n\n");
+            // /////TEST AREA///////////
+            // var testString = "vv\ncommand = " +
+            //     parsed.command;
+            // for(var i = 0 ; i < parsed.args.length; i++){
+            //     testString += " \narg[" + i +"] = " + parsed.args[i] ;
+            // }
+            // message.channel.send("Test Response: " + testString);
+            // ////////
+            try {
+                var a = commandWrapper({
+                    command: parsed.command,
+                    args: parsed.args
+                }, function (a) {
+                    //res.title
+                    //res.value
+                    var title = a.title;
+                    if (a.value instanceof Array) {
+                        field = a.value.join('\n');
+                    } else {
+                        field = a.value;
+                    }
+                    message.channel.send({
+                        embed: {
+                            // title: title,
+                            color: 25777,
+                            fields: [{
+                                name: title,
+                                value: field
+                            }],
+                            width: 1500
+                        }
+                    })
+                });
+                if (a == -1) {
+                    message.reply("It seems your command string has a problem...");
+                    return;
                 }
-            })
-        } catch (err) {
-            message.reply("That thing you said...\n it triggered me.. please don't say it again\n\n\n");
-            console.log("\n-------------------------------\n\n");
-            console.log(err);
+
+            } catch (err) {
+                message.reply("That thing you said...\n it triggered me.. please don't say it again\n\n\n");
+                console.log("\n-------------------------------\n\n");
+                console.log(err);
+            }
+        } else if (parsed === -1) {
+            message.reply("It seems your command string has a problem...");
+        } else if (parsed === 0) {
+
         }
-    } else if (parsed === -1) {
-        message.reply("It seems your command string has a problem...");
-        return;
-    } else if (parsed === 0)
-        return;
-    // if (message.content === 'ping') {
-    //     message.reply('pong');
-    // } else if (message.content === '.me') {
-    //     DB.TESTcheckIfUserExists(message.author.id, function (c) {
-    //         //console.log(message.author.username);
-    //         if (c) {
-    //             message.reply("I Found You in Gamers DB " + message.author.username);
-    //         }
-    //     });
-    // }
+    }
 }
 
 function commandWrapper(
     cmd = {
         command: '',
         args: []
-    }) {
-
+    }, callback) {
+    function _call(_title, _value) {
+        var z = {
+            title: _title,
+            value: _value
+        }
+        callback(z);
+    }
     //console.log("command wrapper :" + cmd.command);
     if (cmd.command == '') return -1;
     var arg = cmd.args;
     switch (cmd.command) {
-        case ".help":
-            return {
-                title: "I will answer to these:",
-                value: [
-                    "```.help```",
-                    "```.games```",
-                    "```.gamers \"game name\"```",
-                    "```.addgame \"game name\" [opt]\"game description\"```",
-                    "```.editgame \"game name\" \"game description\"```",
-                    "```.removegame \"game name\"```",
-                    "```.iplay \"gamename\"```",
-                    "```.idontplay \"gamename\"```",
-                    "```.gamemoderator \"rolename\"```"
-                ]
-            };
-        case ".games":
-            return {
-                title: "Games",
-                value: DB.getAllGames()
-            }
+        case ".help": //DONE
+            _call("I will answer to these:", [
+                "`.help`",
+                "`.games`",
+                "`.gamers \"game name\"`",
+                "`.addgame \"game name\" [opt]\"game description\"`",
+                "`.editgame \"game name\" \"game description\"`",
+                "`.removegame \"game name\"`",
+                "`.iplay \"gamename\"`",
+                "`.idontplay \"gamename\"`",
+                "`.gamemoderator \"rolename\"`"
+            ]);
+        case ".games": //DONE:
+            DB.getAllGames(_message.guild.id, function (err, res) {
+                if (err) {
+                    _call("Failure..", "Couln't get any games..");
+                } else {
+                    var result = [];
+                    for (var i = 0; i < res.rows.length; i++) {
+                        result.push("**" + res.rows[i].gameName + "** | ` " + res.rows[i].gameDesc + " `");
+                    }
+                    if (result.length > 0) {
+                        _call("All Games in " + _message.guild.name,
+                            result
+                        )
+                    } else {
+                        _call("All Games in " + _message.guild.name,
+                            'There are no games yet... \n Use `.addgame` function to add games! \n For more information ask for `.help`'
+                        )
+                    }
+                }
+            })
+            break;
         case ".gamers":
             if (!arg[0])
                 return -1;
-            return {
-                title: "players of " + args[0],
-                value: DB.getPlayersof(args[0])
-            }
+            DB.getPlayersof(_message.guild.id, args[0], function (err, res) {
+                if (err) {
+
+                }
+            });
+            break;
         case ".addgame":
             if (!arg[0]) {
-                console.log("arg yok");
+                // console.log("arg yok");
                 return -1;
             }
-            if (DB.addGame(_message.author.id, arg[0], (arg[1] ? arg[1] : '')) != -1) {
-                console.log("DB.addgame positive")
-                return {
-                    title: "Game added",
-                    value: arg[0] + (arg[1] ? " : " + arg[1] : "")
+            var c = DB.addGame(_message.guild.id, _message.author.id, arg[0], (arg[1] ? arg[1] : ''), function (err, res) {
+                if (err) {
+                    console.log("FaILED");
+                    _call("Add Game Failed", arg[0] + (arg[1] ? " : " + arg[1] : ""))
+                } else {
+                    console.log("Succes", res.rows[0]);
+                    _call("Add Game Success", arg[0] + (arg[1] ? " : " + arg[1] : ""));
                 }
-            } else {
-                console.log("DB.addgame negative")
-                console.log("arg1 = " + arg[1]);
-                console.log(arg[0] + (arg[1] ? " : " + arg[1] : ""));
-                return {
-                    title: "Game add failed",
-                    value: arg[0] + (arg[1] ? " : " + arg[1] : "")
-                }
-            }
+            })
+            break;
         case ".editgame":
             if (!arg[0] || !arg[1])
                 return -1;

@@ -10,10 +10,10 @@ const client = new Client({
 var e = {
   TESTcheckIfUserExists: function (discordID, cb) {
     var _result = false;
-    client.connect();
+    client.connect(); // !
     //console.log();
 
-    var query = {
+    var query = { // !
       text: 'SELECT * FROM "Users" where discord_snowflake like \'' + discordID + '\''
     }
     client.query(query).then(function (res) {
@@ -22,28 +22,24 @@ var e = {
       console.log("HATA HATA");
       console.error(er);
     });
+    client.end(); //!
   },
-  addGame : function(discordID, gameTag, gameDesc =''){
-    return -1;
-  }
+  addGame : function(guildID,userID, gameTag, gameDesc ='', cb){
+    var query = {
+      text : 'INSERT INTO "Games" ("gameName", "gameDesc", "guildID") VALUES (\''+gameTag+'\',\''+gameDesc+'\',\''+guildID+'\') returning id;'
+    }
+    client.connect();
+    client.query(query,cb);
+  },
+  getAllGames : function( guildID , cb ){
+    var query = {
+      text : 'select * from "Games" g where g."guildID" like \'' + guildID + '\''
+    }
+    console.log(query.text);
+    client.connect();
+    client.query(query,cb);
+  },
+  // getPlayersof(guildID, )
+  
 }
-
-
-// (function() {
-//   try {
-//     client.connect();
-//     console.log("clientconnected");
-//     try {
-//       client.query('insert into Table_name(row_name) values("TEST ROW")');
-//       console.log("query completed");
-//     } catch (e) {
-//       console.log("Query Hatası " + e);
-//     }
-//     client.end();
-//     console.log("client ended");
-//     console.log("test complete");
-//   } catch (e) {
-//     console.log("HATA " + e);
-//   }
-// })();
 module.exports = e;
