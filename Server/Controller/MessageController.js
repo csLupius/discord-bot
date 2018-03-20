@@ -43,22 +43,35 @@ MessageController.HandleMessage = function (message) {
                             }],
                             width: 1500
                         }
-                    })
+                    }).then( sent => {
+                        sent.delete(10000);
+                    });
                 });
                 if (a == -1) {
-                    message.reply("It seems your command string has a problem...");
+                    message.reply("It seems your command string has a problem...").then( sent => {
+                        sent.delete(10000);
+                    });
                     return;
                 }
 
             } catch (err) {
-                message.reply("That thing you said...\n it triggered me.. please don't say it again\n\n\n");
+                message.reply("That thing you said...\n it triggered me.. please don't say it again\n\n\n").then( sent => {
+                    sent.delete(10000);
+                });
                 console.log("\n-------------------------------\n\n");
                 console.log(err);
             }
         } else if (parsed === -1) {
-            message.reply("It seems your command string has a problem...");
+            message.reply("It seems your command string has a problem...").then( sent => {
+                console.log(sent);
+            });
         } else if (parsed === 0) {
 
+        }
+        try{
+        message.delete(1500);
+        }catch(e){
+            console.log(e.stack);
         }
     }
 }
