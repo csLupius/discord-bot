@@ -91,6 +91,7 @@ function commandWrapper(
                 "`.idontplay \"gamename\"`",
                 "`.gamemoderator \"rolename\"`"
             ]);
+            break;
         case ".games": //DONE:
             DB.getAllGames(_message.guild.id, function (err, res) {
                 if (err) {
@@ -112,16 +113,28 @@ function commandWrapper(
                 }
             })
             break;
-        case ".gamers":
+        case ".gamers"://DONE
             if (!arg[0])
                 return -1;
-            DB.getPlayersof(_message.guild.id, args[0], function (err, res) {
+            DB.getPlayersof(_message.guild.id, arg[0], function (err, res) {
                 if (err) {
+                    _call("Couln't get games of" + arg[0], "sorry...")
+                } else {
+                    var result = [];
+                    for (var i = 0; i < res.rows.length; i++) {
+                        //console.log(res.rows[i].discord_snowflake);
+                        //console.log(_message.guild.members);
+                        //console.log(_message.guild.members.get(res.rows[i].discord_snowflake).user.username);
+                        result.push(_message.guild.members.get(res.rows[i].discord_snowflake).user.username);
+                    }
+                    if (result.length > 0)
+                        _call("Players of " + arg[0], result);
+                    else _call(`Players of ${arg[0]}`, `Can't find any players... \n Want to be the first? use \`.iplay "${arg[0]}"\``);
 
                 }
             });
             break;
-        case ".addgame":
+        case ".addgame"://DONE
             if (!arg[0]) {
                 // console.log("arg yok");
                 return -1;
@@ -150,6 +163,7 @@ function commandWrapper(
                     value: [arg[0] + " : " + arg[1]]
                 }
             }
+            break;
         case ".removegame":
             if (!arg[0])
                 return -1;

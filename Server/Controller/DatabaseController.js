@@ -1,3 +1,4 @@
+//
 const {
   Client
 } = require("pg");
@@ -8,38 +9,43 @@ const client = new Client({
 });
 
 var e = {
-  TESTcheckIfUserExists: function (discordID, cb) {
-    var _result = false;
-    client.connect(); // !
-    //console.log();
+  addGame: function (guildID, userID, gameTag, gameDesc = '', cb) {
+    var query = {
+      text: 'INSERT INTO "Games" ("gameName", "gameDesc", "guildID") VALUES (\'' + gameTag + '\',\'' + gameDesc + '\',\'' + guildID + '\') returning id;'
+    }
 
-    var query = { // !
-      text: 'SELECT * FROM "Users" where discord_snowflake like \'' + discordID + '\''
-    }
-    client.query(query).then(function (res) {
-      cb(res.rows[0]);
-    }).catch(function (er) {
-      console.log("HATA HATA");
-      console.error(er);
+    client.query(query, function (err, res) {
+      cb(err, res);
     });
-    client.end(); //!
   },
-  addGame : function(guildID,userID, gameTag, gameDesc ='', cb){
+  getAllGames: function (guildID, cb) {
     var query = {
-      text : 'INSERT INTO "Games" ("gameName", "gameDesc", "guildID") VALUES (\''+gameTag+'\',\''+gameDesc+'\',\''+guildID+'\') returning id;'
+      text: 'select * from "Games" g where g."guildID" like \'' + guildID + '\''
     }
-    client.connect();
-    client.query(query,cb);
+    client.query(query, function (err, res) {
+      cb(err, res);
+    });
   },
-  getAllGames : function( guildID , cb ){
+  getPlayersof: function (guildID, gametag, cb) {
     var query = {
-      text : 'select * from "Games" g where g."guildID" like \'' + guildID + '\''
+      text: `SELECT 
+    "discord_snowflake"
+    FROM 
+    public."Games", 
+    public."Users", 
+    public."GameUserbind"
+    WHERE 
+    "Games".id = "GameUserbind".gameid AND
+    "Users".id = "GameUserbind".userid AND
+    "Games"."gameName" Like '${gametag}'`
     }
-    console.log(query.text);
-    client.connect();
-    client.query(query,cb);
-  },
-  // getPlayersof(guildID, )
-  
+    client.query(query, function (err, res) {
+      cb(err, res);
+    });
+  }
+
 }
-module.exports = e;
+module.exports = (function () {
+  client.connect();
+  return e;
+})();
